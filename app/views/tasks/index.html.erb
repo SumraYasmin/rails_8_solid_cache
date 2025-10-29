@@ -1,21 +1,10 @@
 <div class="container">
   <h1>Tasks</h1>
-  
+
   <%= link_to "New Task", new_task_path, class: "btn btn-primary" %>
-  
+
   <% if @tasks.any? %>
-    <% @tasks.each do |task| %>
-      <div class="task-card">
-        <%= link_to task.title, task, class: "task-title" %>
-        <p><%= truncate(task.description, length: 150) %></p>
-        <small>Created <%= time_ago_in_words(task.created_at) %> ago</small>
-        <div style="margin-top: 10px;">
-          <%= link_to "View", task, class: "btn btn-primary" %>
-          <%= link_to "Edit", edit_task_path(task), class: "btn btn-secondary" %>
-          <%= button_to "Delete", task, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger" %>
-        </div>
-      </div>
-    <% end %>
+    <%= render partial: 'task', collection: @tasks, cached: true %>
   <% else %>
     <p>No tasks yet. <%= link_to "Create one!", new_task_path %></p>
   <% end %>

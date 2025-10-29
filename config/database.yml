@@ -19,10 +19,15 @@ default: &default
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
-
 development:
-  <<: *default
-  database: rails_8_solid_cable_development
+  primary:
+    <<: *default
+    database: rails_8_solid_cable_development
+
+  cache:
+    adapter: sqlite3
+    database: rails_8_solid_cache_development.sqlite3
+    migrations_paths: db/cache_migrate
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
