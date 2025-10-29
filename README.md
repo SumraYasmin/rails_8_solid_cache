@@ -44,7 +44,6 @@ Update `config/database.yml` to include your cache database configuration:
 development:
   primary:
     <<: *default
-    database: db/development.sqlite3
 
   cache:
     adapter: sqlite3
