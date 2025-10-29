@@ -41,18 +41,13 @@ A demonstration application showcasing how to implement and use Solid Cache in a
 Update `config/database.yml` to include your cache database configuration:
 
 ```yaml
-default: &default
-  adapter: sqlite3
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
-
 development:
   primary:
     <<: *default
     database: db/development.sqlite3
 
   cache:
-    <<: *default
+    adapter: sqlite3
     database: db/cache_development.sqlite3
 ```
 
@@ -63,13 +58,11 @@ Update `config/cache.yml`:
 development:
   store: solid_cache_store
   database: cache
-  namespace: cache
   expires_in: 1.day
 
 production:
   store: solid_cache_store
   database: cache
-  namespace: cache
   expires_in: 1.week
 ```
 
@@ -94,7 +87,7 @@ config.cache_store = :solid_cache_store
 
    # Fragment caching in views
    <% cache @task do %>
-     <%= render @task %>
+     <%= render @task, cached: true %>
    <% end %>
    ```
 
